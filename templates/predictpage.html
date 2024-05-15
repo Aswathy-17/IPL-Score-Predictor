@@ -37,7 +37,7 @@
       <div class="predicted-score">
         <br />
         <br />
-        <h2 style="color: white">Predicted Score:</h2>
+        <h2 style="color: white">Predicted Score:<br />{{score}}</h2>
         <p id="predicted-score"></p>
       </div>
       <div class="lgtbt">
@@ -75,37 +75,37 @@
             // Set image path based on team name
             switch (teamName) {
               case "Kolkata Knight Riders":
-                imagePath = "/static/Kolkata Knight Riders.png"; // Update with actual path
+                imagePath = "../static/Kolkata Knight Riders.png";
                 break;
               case "Chennai Super Kings":
-                imagePath = "/static/Chennai Super Kings.png"; // Update with actual path
+                imagePath = "../static/Chennai Super Kings.png";
                 break;
               case "Rajasthan Royals":
-                imagePath = "/static/Rajasthan Royals.png"; // Update with actual path
+                imagePath = "../static/Rajasthan Royals.png";
                 break;
               case "Mumbai Indians":
-                imagePath = "/static/Mumbai Indians.png"; // Update with actual path
+                imagePath = "../static/Mumbai Indians.png";
                 break;
               case "Punjab Kings":
-                imagePath = "/static/Punjab Kings.png"; // Update with actual path
+                imagePath = "../static/Punjab Kings.png";
                 break;
               case "Delhi Capitals":
-                imagePath = "/static/Delhi Capitals.png"; // Update with actual path
+                imagePath = "../static/Delhi Capitals.png";
                 break;
               case "Royal Challengers Bengaluru":
-                imagePath = "/static/Royal Challengers Bengaluru.png"; // Update with actual path
+                imagePath = "../static/Royal Challengers Bengaluru.png";
                 break;
               case "Sunrisers Hyderabad":
-                imagePath = "/static/Sunrisers Hyderabad.png"; // Update with actual path
+                imagePath = "../static/Sunrisers Hyderabad.png";
                 break;
               case "Lucknow Super Giants":
-                imagePath = "/static/Lucknow Super Giants.png"; // Update with actual path
+                imagePath = "../static/Lucknow Super Giants.png";
                 break;
               case "Gujarat Titans":
-                imagePath = "/static/Gujarat Titans.png"; // Update with actual path
+                imagePath = "../static/Gujarat Titans.png";
                 break;
-              default:
-                imagePath = "/static/images/default_logo.png"; // Default logo path
+              // default:
+              //   imagePath = "../static/default_logo.png";
             }
             // Set image source and alt attribute
             imgElement.src = imagePath;

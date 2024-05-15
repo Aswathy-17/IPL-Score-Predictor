@@ -91,6 +91,7 @@ input[type="submit"] {
   border-radius: 8px; /* Rounded corners */
   cursor: pointer; /* Cursor style on hover */
   transition: background-color 0.3s; /* Smooth transition for background color */
+  margin-top: 100%;
 }
 
 /* Hover effect for the submit button */

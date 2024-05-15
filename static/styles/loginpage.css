@@ -15,6 +15,13 @@ h1 {
   text-align: center;
 }
 
+.contain {
+  max-width: 67%;
+  font-size: 150%;
+  position: absolute;
+  left: 50%;
+}
+
 .container {
   max-width: 400px;
   position: absolute;
@@ -57,9 +64,4 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: rgba(29, 109, 188, 0.752);
-}
-
-.success-message {
-  display: none;
-  color: green;
 }
