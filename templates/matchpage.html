@@ -13,8 +13,8 @@
   <body>
     <div class="container">
       <h2>IPL Score Prediction</h2>
-      <form action="{{ url_for('predict') }}" method="post">
-        <label for="battingteam">Batting Team</label>
+      <form action="{{ url_for('predict') }}" method="POST">
+        <label for="battingTeam">Batting Team</label>
         <select
           id="battingTeam"
           name="battingTeam"
@@ -36,7 +36,7 @@
           <option value="Gujarat Titans">Gujarat Titans</option>
         </select>
 
-        <label for="bowlingteam">Bowling Team</label>
+        <label for="bowlingTeam">Bowling Team</label>
         <select
           id="bowlingTeam"
           name="bowlingTeam"
@@ -90,7 +90,7 @@
           }
         </script>
 
-        <script>
+        <!-- <script>
           document.addEventListener("DOMContentLoaded", function () {});
 
           document
@@ -107,7 +107,7 @@
                 JSON.stringify({ battingTeam, bowlingTeam })
               );
             });
-        </script>
+        </script> -->
 
         <label for="Innings">Innings</label>
         <input
@@ -145,7 +145,7 @@
           id="currentRuns"
           name="currentRuns"
           required
-          max="10"
+          max="6"
           min="0"
         />
 

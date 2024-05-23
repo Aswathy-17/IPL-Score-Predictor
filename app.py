@@ -22,6 +22,8 @@ def home():
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
+      existing_user = users_collection.find_one({'username': request.form['uname']})
+      if existing_user is None:
         # Get form data
         first_name = request.form['fname']
         last_name = request.form['lname']
@@ -43,8 +45,10 @@ def create():
         
         # Redirect to login page
         return redirect(url_for('login'))
+      else:
+        return "User already exists!" + render_template('createpage.html')
     else:
-        return render_template('createpage.html')
+      return render_template('createpage.html')
 
 # Route for user login
 @app.route('/login', methods=['GET', 'POST'])
@@ -62,16 +66,16 @@ def login():
             return redirect(url_for('match'))
         else:
             # Authentication failed, redirect back to login page with error message
-            return render_template('loginpage.html', error='Invalid username or password')
+            return "INVALID USERNAME/PASSWORD" + render_template('loginpage.html')    #, error='Invalid username or password')
     else:
-        return render_template('loginpage.html')
+        return render_template("loginpage.html")
 
 # Route for the match page
-@app.route('/match')
+@app.route('/match', methods=['GET', 'POST'])
 def match():
     if 'username' not in session:  # Check if user is logged in
         return redirect(url_for('login'))
-    return render_template("matchpage.html")
+    return "WELCOME" + session["username"]+ render_template("matchpage.html")
 
 #LOGOUT
 @app.route('/logout')
@@ -125,7 +129,7 @@ def score_predict(venue,innings,ball,batting_team, bowling_team,runs,cruns,cwick
     bat= [0,0,0,0,0,0,1,0,0,0]
   elif batting_team == 'Rajasthan Royals':
     bat= [0,0,0,0,0,0,0,1,0,0]
-  elif batting_team == 'Royal Challengers Bangalore':
+  elif batting_team == 'Royal Challengers Bengaluru':
     bat=[0,0,0,0,0,0,0,0,1,0]
   elif batting_team == 'Sunrisers Hyderabad':
     bat=[0,0,0,0,0,0,0,0,0,1]
@@ -147,7 +151,7 @@ def score_predict(venue,innings,ball,batting_team, bowling_team,runs,cruns,cwick
     bowl= [0,0,0,0,0,0,1,0,0,0]
   elif bowling_team == 'Rajasthan Royals':
     bowl= [0,0,0,0,0,0,0,1,0,0]
-  elif bowling_team == 'Royal Challengers Bangalore':
+  elif bowling_team == 'Royal Challengers Bengaluru':
     bowl=[0,0,0,0,0,0,0,0,1,0]
   elif bowling_team == 'Sunrisers Hyderabad':
     bowl=[0,0,0,0,0,0,0,0,0,1]
@@ -161,17 +165,19 @@ def score_predict(venue,innings,ball,batting_team, bowling_team,runs,cruns,cwick
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    if request.method == 'POST':
+    if request.method == "POST":
         venue=request.form['stadium']
         inn=int(request.form['Innings'])
         ball=float(request.form['currentBall'])
-        batting=request.form['battingTeam']
-        bowling=request.form['bowlingTeam']
+        batting_Team=request.form['battingTeam']
+        bowling_Team=request.form['bowlingTeam']
         runs=int(request.form['currentRuns'])
         cruns=int(request.form['currentScore'])
         cwicket=int(request.form['currentWickets'])
-        print("\nst:",venue,"\ninn:",inn,"\nball:",ball,"\nbat:",batting,"\nbowl:",bowling,"\nruns:",runs,"\ncruns:",cruns,"\ncwick:",cwicket)
-        output=score_predict(venue,inn,ball,batting, bowling,runs,cruns,cwicket)
+        batting_logo = url_for('static', filename=f'{batting_Team}.png')
+        bowling_logo = url_for('static', filename=f'{bowling_Team}.png')
+        print("\nst:",venue,"\ninn:",inn,"\nball:",ball,"\nbat:",batting_Team,"\nbowl:",bowling_Team,"\nruns:",runs,"\ncruns:",cruns,"\ncwick:",cwicket)
+        output=score_predict(venue,inn,ball,batting_Team, bowling_Team,runs,cruns,cwicket)
         print(output)
         # data = {
         #     'venue': [int(request.form['stadium'])],
@@ -188,6 +194,7 @@ def predict():
         # print(input_data)
         # prediction = model.predict(input_data)
         # output = prediction[0]
-        return render_template('predictpage.html', score=output)
+        return render_template("predictpage.html", score=output,battingTeam=batting_Team, bowlingTeam=bowling_Team,battingLogo=batting_logo,
+                           bowlingLogo=bowling_logo)
 if __name__ == "__main__":
     app.run(debug=True) 
